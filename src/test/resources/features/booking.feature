@@ -4,7 +4,7 @@ Feature: Search in Booking
     Given booking search page is opened
     When user searches for "Akra Kemer"
     Then "Akra Kemer - Ultra All Inclusive" hotel is shown
-    And hotel rating is "9,1"
+    And hotel rating is "9.1"
 
 
     Scenario Outline: Looking hotels
@@ -15,3 +15,14 @@ Feature: Search in Booking
       | hotel | expectedResult |
       | Akra Kemer | Akra Kemer - Ultra All Inclusive |
       | Meraki | Meraki Resort Sharm El Sheikh Adults only |
+
+
+  Scenario Outline: Looking hotels with ratings
+    Given booking search page is opened
+    When user searches for "<hotel>"
+    Then "<expectedResult>" hotel is shown
+    And "<hotelRating>" is shown
+    Examples:
+      | hotel | expectedResult | hotelRating
+      | Akra Kemer | Akra Kemer - Ultra All Inclusive | 9.1
+      | Meraki | Meraki Resort Sharm El Sheikh Adults only | 9.5
