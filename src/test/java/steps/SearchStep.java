@@ -27,8 +27,6 @@ public class SearchStep {
 
     @When("user searches for {string}")
     public void userSearchesFor(String hotel) {
-        //driver.findElement(By.xpath("//input[@placeholder='Where are you going?']")).sendKeys(hotel);
-        //driver.findElement(By.xpath("//span[text()='Search']")).click();
         driver.findElement(By.xpath("//input[@name='ss']")).sendKeys(hotel);
         driver.findElement(By.xpath("//button[@type='submit']")).click();
     }
@@ -65,5 +63,18 @@ public class SearchStep {
        String actualScore =
                driver.findElement(By.xpath("//div[@data-testid='review-score']/div[@aria-hidden='true']")).getText();
        Assert.assertEquals(expectedScore, actualScore);
+    }
+
+    @And("{string} is shown")
+    public void hotelRatingIsShown(String expectedResult) {
+        List<WebElement> ratings = driver.findElements(By.xpath("//div[@data-testid='review-score']/div[@aria-hidden='true']"));
+        boolean isRatingFound = false;
+        for (WebElement rating : ratings) {
+            if(rating.getText().equals(expectedResult)) {
+                isRatingFound = true;
+                break;
+            }
+        }
+        Assert.assertTrue(isRatingFound);
     }
 }
